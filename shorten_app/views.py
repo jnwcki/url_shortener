@@ -11,7 +11,8 @@ from shorten_app.models import Url, Clicks
 class IndexView(View):
     def get(self, request):
         url_form = UrlForm()
-        return render(request, 'index.html', {"form": url_form})
+        last_url = Url.objects.last()
+        return render(request, 'index.html', {"form": url_form, 'last_url': last_url})
 
     def post(self, request):
         hashids = Hashids()

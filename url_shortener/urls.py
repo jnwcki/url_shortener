@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name="index"),
     url(r'^all/$', AllClick.as_view(), name="all_clicks"),
     url(r'^user/(?P<pk>\d+)', UserClick.as_view(), name="user_clicks"),
-    url(r'^(?P<captured_id>\w+)', redirect)
+    url(r'^(?P<captured_id>\w+)', redirect, name="clicky")
 ]
