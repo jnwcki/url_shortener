@@ -5,7 +5,8 @@ from hashids import Hashids
 from django.views.generic import View, CreateView
 from django.core.urlresolvers import reverse
 from shorten_app.forms import UrlForm
-from shorten_app.models import Url
+from shorten_app.models import Url, Clicks
+
 
 class IndexView(View):
     def get(self, request):
@@ -31,8 +32,10 @@ class UserClick(CreateView):
     pass
 
 
-def redirect(request, pk):
-    print(pk)
-    redirect_url_object = Url.objects.get(short_version=pk)
+def redirect(request, captured_id):
+    redirect_url_object = Url.objects.get(short_version=captured_id)
     redirect_url = redirect_url_object.url
+
+    Clicks.objects.create(referenced_url=redirect_url_object)
+
     return HttpResponseRedirect(redirect_url)
