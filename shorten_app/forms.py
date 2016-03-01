@@ -6,4 +6,4 @@ class UrlForm(forms.ModelForm):
 
     class Meta:
         model = Url
-        exclude = []
+        exclude = ['short_version']

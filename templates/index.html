@@ -2,7 +2,9 @@
 
 {% block content %}
 Welcome to index.html
-
-    {{ form.as_p }}
-
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input type="submit" value="submit">
+    </form>
 {% endblock %}
