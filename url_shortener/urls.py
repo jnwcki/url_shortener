@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-
+from django.contrib.auth import views as auth_views
 from shorten_app.views import IndexView, AllClick, redirect, AllLink
 
 urlpatterns = [
@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name="index"),
     url(r'^all/$', AllClick.as_view(), name="all_clicks"),
     url(r'^links/$', AllLink.as_view(), name="all_links"),
+    url(r'^accounts/login/$', auth_views.login, name="login"),
+    url(r'^accounts/logout/$', auth_views.logout, name="logout"),
     url(r'^(?P<captured_id>\w+)', redirect, name="clicky")
 ]

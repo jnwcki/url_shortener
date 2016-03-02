@@ -35,6 +35,8 @@ class AllLink(ListView):
     model = Url
 
 
+
+
 def redirect(request, captured_id):
     redirect_url_object = Url.objects.get(short_version=captured_id)
     redirect_url = redirect_url_object.url
