@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div><h3>Create a new Bookmark:</h3></div>
+    <div class="container">
+    {% if request.user.is_authenticated %}
+    <div><h2>Create or Edit a Bookmark:</h2></div>
     <div class="container">
         <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="submit">
         </form>
+    </div>
+    {% else %}
+        <h2>Log in to start making bookmarks!</h2>
+    {% endif %}
     </div>
 {% endblock %}

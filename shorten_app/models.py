@@ -19,7 +19,6 @@ class Url(models.Model):
         ordering = ["-added"]
 
 
-
 class Clicks(models.Model):
     time_of_click = models.DateTimeField(auto_now_add=True)
     referenced_url = models.ForeignKey(Url)

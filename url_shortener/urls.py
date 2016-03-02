@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from shorten_app.views import IndexView, AllClick, redirect, AllLink, CreateLink
+from shorten_app.views import IndexView, AllClick, redirect, AllLink, CreateLink, EditLink
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^accounts/login/$', auth_views.login, name="login"),
     url(r'^accounts/logout/$', auth_views.logout, name="logout"),
     url(r'^create_link/$', CreateLink.as_view(), name="create_link"),
+    url(r'^edit/(?P<pk>\w+)', EditLink.as_view(), name="edit_urls"),
     url(r'^(?P<captured_id>\w+)', redirect, name="clicky")
 ]

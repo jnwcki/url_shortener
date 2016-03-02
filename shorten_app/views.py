@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from hashids import Hashids
 # Create your views here.
-from django.views.generic import View, CreateView, ListView
+from django.views.generic import View, CreateView, ListView, UpdateView
 from django.core.urlresolvers import reverse
 from shorten_app.forms import UrlForm
 from shorten_app.models import Url, Clicks
@@ -11,7 +11,9 @@ from shorten_app.models import Url, Clicks
 class IndexView(View):
     def get(self, request):
         last_url = Url.objects.first()
-        return render(request, 'index.html', {'last_url': last_url})
+        user_urls = Url.objects.filter(user=self.request.user)
+
+        return render(request, 'index.html', {'last_url': last_url, 'user_urls': user_urls})
 
 
 class AllClick(ListView):
@@ -40,6 +42,11 @@ class CreateLink(CreateView):
 
     def get_success_url(self):
         return reverse('index')
+
+
+class EditLink(UpdateView):
+    model = Url
+    fields = ('url', 'title', 'description')
 
 
 def redirect(request, captured_id):

@@ -10,16 +10,16 @@
         <ul class="nav nav-pills">
             <li role="presentation" class="active"><a href="{% url 'index' %}">Home</a></li>
             <li role="presentation"><a href="{% url 'all_clicks' %}">All Clicks</a></li>
-            <li role="presentation"><a href="{% url 'all_links' %}">All Urls</a></li>
+            <li role="presentation"><a href="{% url 'all_links' %}">All Bookmarks</a></li>
             <li role="presentation"><a href="{% url 'create_link' %}">Add New Bookmark</a></li>
             {% if request.user.is_authenticated %}
-                <li role="presentation"><a href="{% url 'logout' %}">Log Out</a></li>
+                <li role="presentation"><a href="{% url 'logout' %}">Log Out {{ request.user }}</a></li>
             {% else %}
                 <li role="presentation"><a href="{% url 'login' %}">Log In</a></li>
             {% endif %}
         </ul>
 
-{% block content %}{% endblock %}
+<div class="container">{% block content %}{% endblock %}</div>
 
 </div>
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>

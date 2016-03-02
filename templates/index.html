@@ -1,12 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="container">
     {% if request.user.is_authenticated %}
-    <h3>Welcome {{ request.user }}.</h3>
+    <h3>Welcome {{ request.user }}. Your Bookmarks:</h3>
+    {% for url in user_urls %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div>
+                    <h4>
+                        <div>
+                            <a href="{% url 'edit_urls' url.pk %}">Edit Bookmark</a>
+                        </div>
+                    </h4>
+                    <h4>
+                        <div>
+                            <a href="{% url 'clicky' url.short_version %}">{{ url.short_version }}</a>
+                        </div>
+                    </h4>
+                </div>
+                <div>
+                    <h4>{{ url.title }}: <a href="{{ url.url }}"> {{ url.url }} </a></h4>
+                    <div>{{ url.description }}</div>
+                    <div><h6>Created: {{ url.added }}</h6></div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
     {% else %}
     <h3>Welcome! <a href="{% url 'login' %}">Login to start creating Bookmarks</a></h3>
     {% endif %}
 
     <div><h3>Latest Bookmark: {{ last_url.title }}</h3></div>
     <div><h3>Link: <a href="{% url 'clicky' last_url.short_version %}">{{ last_url.short_version }}</a></h3></div>
+</div>
 {% endblock %}
