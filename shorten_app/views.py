@@ -10,21 +10,8 @@ from shorten_app.models import Url, Clicks
 
 class IndexView(View):
     def get(self, request):
-        url_form = UrlForm()
         last_url = Url.objects.first()
-        return render(request, 'index.html', {"form": url_form, 'last_url': last_url})
-
-    def post(self, request):
-        hashids = Hashids(min_length=5)
-        form_instance = UrlForm(request.POST)
-        if form_instance.is_valid():
-            url_object = form_instance.save()
-            hashid = hashids.encode(url_object.id)
-
-            url_object.short_version = hashid
-            url_object.save()
-
-        return HttpResponseRedirect(reverse("index"))
+        return render(request, 'index.html', {'last_url': last_url})
 
 
 class AllClick(ListView):
@@ -35,6 +22,24 @@ class AllLink(ListView):
     model = Url
 
 
+class CreateLink(CreateView):
+    model = Url
+    fields = ('url', 'title', 'description')
+
+    def form_valid(self, form):
+        url_object = form.save(commit=False)
+        url_object.user = self.request.user
+        url_object.save()
+        print(url_object.id)
+        hashids = Hashids(min_length=5)
+        hashid = hashids.encode(url_object.id)
+        url_object.short_version = hashid
+        url_object.save()
+        print(url_object.short_version)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('index')
 
 
 def redirect(request, captured_id):

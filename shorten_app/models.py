@@ -1,6 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
+
 
 class Url(models.Model):
     url = models.URLField()
@@ -8,6 +10,7 @@ class Url(models.Model):
     description = models.TextField()
     short_version = models.CharField(max_length=30)
     added = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User)
 
     def __str__(self):
         return self.url
@@ -20,9 +23,6 @@ class Url(models.Model):
 class Clicks(models.Model):
     time_of_click = models.DateTimeField(auto_now_add=True)
     referenced_url = models.ForeignKey(Url)
-
-    def __str__(self):
-        return self.time_of_click
 
     class Meta:
         ordering = ["-time_of_click"]

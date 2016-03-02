@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Welcome. Please input a url for shortening:</h3>
-    <div>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-    <input type="submit" value="submit">
-    </form>
-        </div>
-    <div><h3>Last Url: {{ last_url.title }}</h3></div>
+    {% if request.user.is_authenticated %}
+    <h3>Welcome {{ request.user }}.</h3>
+    {% else %}
+    <h3>Welcome! <a href="{% url 'login' %}">Login to start creating Bookmarks</a></h3>
+    {% endif %}
+
+    <div><h3>Latest Bookmark: {{ last_url.title }}</h3></div>
     <div><h3>Link: <a href="{% url 'clicky' last_url.short_version %}">{{ last_url.short_version }}</a></h3></div>
 {% endblock %}
