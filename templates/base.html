@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body><div class="container">
-<div>
-    <a href="{% url "index" %}">Index</a>
-</div>
-<div>
-    <a href="{% url "all_clicks" %}">All Clicks</a>
-</div>
+<body>
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li role="presentation" class="active"><a href="{% url 'index' %}">Home</a></li>
+            <li role="presentation"><a href="{% url 'all_clicks' %}">All Clicks</a></li>
+            <li role="presentation"><a href="{% url 'all_links' %}">All Urls</a></li>
+
+        </ul>
 
 {% block content %}{% endblock %}
 

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <h2>All saved Urls</h2>
+    {% for url in url_list %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div>
+                    <h4><a href="{% url 'clicky' url.short_version %}">{{ url.short_version }}</a></h4>
+                </div>
+                <div>
+                    <h4>{{ url.title }}: <a href="{{ url.url }}"> {{ url.url }} </a></h4>
+                    <div>{{ url.description }}</div>
+                    <div><h6>Created: {{ url.added }}</div></h6>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+    </div>
+{% endblock %}

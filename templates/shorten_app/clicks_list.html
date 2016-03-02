@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div></div>
+    {% for entry in clicks_list %}
+    <div>
+        <h4>{{ entry.time_of_click }}    <a href="{% url 'clicky' entry.referenced_url.short_version %}">/{{ entry.referenced_url.short_version }}</a>
+        </h4>
+    </div>
+{% endfor %}
+{% endblock %}

@@ -16,12 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from shorten_app.views import IndexView, AllClick, UserClick, redirect
+from shorten_app.views import IndexView, AllClick, redirect, AllLink
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name="index"),
     url(r'^all/$', AllClick.as_view(), name="all_clicks"),
-    url(r'^user/(?P<pk>\d+)', UserClick.as_view(), name="user_clicks"),
+    url(r'^links/$', AllLink.as_view(), name="all_links"),
     url(r'^(?P<captured_id>\w+)', redirect, name="clicky")
 ]
