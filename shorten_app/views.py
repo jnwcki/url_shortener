@@ -11,9 +11,14 @@ from shorten_app.models import Url, Clicks
 class IndexView(View):
     def get(self, request):
         last_url = Url.objects.first()
-        user_urls = Url.objects.filter(user=self.request.user)
-
-        return render(request, 'index.html', {'last_url': last_url, 'user_urls': user_urls})
+        if self.request.user.id:
+            user_urls = Url.objects.filter(user=self.request.user)
+            return render(request, 'index.html', {'last_url': last_url,
+                                                  'user_urls': user_urls
+                                                  }
+                          )
+        else:
+            return render(request, 'index.html', {'last_url': last_url})
 
 
 class AllClick(ListView):
